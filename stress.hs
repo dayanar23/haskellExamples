@@ -30,8 +30,8 @@ removePrefix p s = if isPrefix p s
                    else "error: " ++ p ++ "  no es prefijo de " ++ s --Fix for pure function 
 
 suffixes :: [a] -> [[a]]
-suffixes [] = []
-suffixes s = s : suffixes (tail s)
+suffixes x@(_:xs) = x : suffixes xs
+suffixes _        = []
 
 isSubstring :: String -> String -> Bool
 isSubstring s1 s2 = any (isPrefix s1) (suffixes s2)
