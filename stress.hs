@@ -36,6 +36,7 @@ isSubstring s1 s2 = any (isPrefix s1) (suffixes s2)
 
 findSubstring:: String -> String -> [Int]
 findSubstring s1 s2 = findInd (isPrefix s1) (suffixes s2)
+  where findInd p xs = [ i | (x,i) <- zip xs [0..], p x]
 
 {-
     SEARCHING OVER TREES
@@ -59,9 +60,6 @@ showSubtrees:: SuffixTree -> [String]
 showSubtrees  (Node t) = map fst t
 
 selectStree:: SuffixTree -> String -> Bool
-
-
-findInd p xs = [ i | (x,i) <- zip xs [0..], p x]
 selectStree t s = any (isPrefix s) (showSubtrees t) 
 
 showTree:: SuffixTree ->[String]
