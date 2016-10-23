@@ -1,5 +1,3 @@
-import Data.List(findIndices)
-
 data SuffixTree = Leaf Int 
                 | Node [(String, SuffixTree)]
                 deriving (Eq, Ord, Show)
@@ -37,7 +35,7 @@ isSubstring :: String -> String -> Bool
 isSubstring s1 s2 = any (isPrefix s1) (suffixes s2)
 
 findSubstring:: String -> String -> [Int]
-findSubstring s1 s2 = findIndices (isPrefix s1) (suffixes s2)
+findSubstring s1 s2 = findInd (isPrefix s1) (suffixes s2)
 
 {-
     SEARCHING OVER TREES
@@ -61,6 +59,9 @@ showSubtrees:: SuffixTree -> [String]
 showSubtrees  (Node t) = map fst t
 
 selectStree:: SuffixTree -> String -> Bool
+
+
+findInd p xs = [ i | (x,i) <- zip xs [0..], p x]
 selectStree t s = any (isPrefix s) (showSubtrees t) 
 
 showTree:: SuffixTree ->[String]
