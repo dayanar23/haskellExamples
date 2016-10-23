@@ -47,6 +47,14 @@ getIndices (Leaf t) = [t]
 getIndices (Node tn) = concatMap (getIndices . snd) tn
 
 
+findSub :: String -> SuffixTree -> [Int]
+findSub s (Leaf i)              = []
+findSub s (Node [(str,t):ts])   = case isPrefix s str of
+        True    -> getIndices t
+        False   -> if isPrefix str s 
+                        then findSub (removePrefix str s) t
+                        else findSub s ts
+
 findSubstrings' :: String -> SuffixTree -> [Int]
 findSubstrings' s (Leaf t) = []
 findSubstrings' s (Node tn) = undefined
